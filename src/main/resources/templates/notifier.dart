@@ -8,6 +8,6 @@ final $nameProvider = StateNotifierProvider.autoDispose<$nameNotifier,$nameState
 
 
 class $nameNotifier extends StateNotifier<$nameState> {
-  $nameNotifier() : super(const this.$nameState());
+  $nameNotifier() : super(const $nameState());
 
 }
