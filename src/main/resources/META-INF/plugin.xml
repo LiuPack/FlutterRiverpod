@@ -4,6 +4,14 @@
     <name>Flutter Riverpod Template</name>
     <vendor email="864517543@qq.com" url="https://github.com/LiuPack/FlutterRiverpod">liupack</vendor>
 
+    <description><![CDATA[
+    <h2>Used to generate the template code of provider framework</h2>
+    <ul>
+        <li>Right-click the File: New -> Flutter Provider </li>
+        <li>GitHub：<a href="https://github.com/LiuPack/FlutterRiverpod">Riverpod Freezed Template</a></li>
+    </ul>
+    ]]></description>
+
     <depends>com.intellij.modules.all</depends>
 
     <actions>
