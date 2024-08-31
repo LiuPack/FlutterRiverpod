@@ -8,6 +8,7 @@ import com.intellij.openapi.actionSystem.PlatformDataKeys
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.Messages
 import com.intellij.ui.JBColor
+import io.ktor.util.*
 import java.awt.Container
 import java.awt.Dimension
 import java.awt.FlowLayout
@@ -159,19 +160,19 @@ class NewRiverpod : AnAction() {
         }
         if (outFileName.contains(data.logicName.lowercase())) {
             content = content.replace("state.dart", prefixName + data.stateName.lowercase() + ".dart")
-            content = content.replace("final \$name", "final ${nameTextField.text.lowercase()}")
-            content = content.replace("Notifier", data.logicName)
-            content = content.replace("State", data.stateName)
+            content = content.replace("final \$name", "final ${toPascalCase(nameTextField.text, false)}")
+            content = content.replace("Notifier", toPascalCase(data.logicName))
+            content = content.replace("State", toPascalCase(data.stateName))
         }
         if (outFileName.contains(data.stateName.lowercase())) {
             content = content.replace("state.freezed.dart", prefixName + data.stateName.lowercase() + ".freezed.dart")
-            content = content.replace("State", data.stateName)
+            content = content.replace("State", toPascalCase(data.stateName))
         }
         if (outFileName.contains(data.viewFileName.lowercase())) {
-            content = content.replace("Page", data.viewName)
+            content = content.replace("Page", toPascalCase(data.viewName))
         }
 
-        content = content.replace("\$name", upperCase(nameTextField.getText()))
+        content = content.replace("\$name", toPascalCase(nameTextField.getText()))
         return content
     }
 
@@ -225,6 +226,14 @@ class NewRiverpod : AnAction() {
 
     private fun upperCase(content: String): String {
         return content.substring(0, 1).uppercase() + content.substring(1)
+    }
+
+    private fun toPascalCase(input: String, firstCharUpper: Boolean = true): String {
+        val result = input.split('_') // 将字符串按下划线分割成数组
+            .joinToString("") { part -> // 将数组拼接成一个字符串
+                part.replaceFirstChar { if (it.isLowerCase()) it.titlecase() else it.toString() }
+            }
+        return if (firstCharUpper) result.replaceFirstChar { it.uppercaseChar() } else result.replaceFirstChar { it.lowercaseChar() }
     }
 
 }

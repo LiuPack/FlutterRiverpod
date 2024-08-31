@@ -1,39 +1,27 @@
 package com.github.liupack.flutterriverpod
 
-import com.intellij.ide.highlighter.XmlFileType
-import com.intellij.openapi.components.service
-import com.intellij.psi.xml.XmlFile
 import com.intellij.testFramework.TestDataPath
 import com.intellij.testFramework.fixtures.BasePlatformTestCase
-import com.intellij.util.PsiErrorElementUtil
-import com.github.liupack.flutterriverpod.services.MyProjectService
+import io.ktor.util.*
+import kotlin.text.isLowerCase
 
 @TestDataPath("\$CONTENT_ROOT/src/test/testData")
 class MyPluginTest : BasePlatformTestCase() {
 
-    fun testXMLFile() {
-        val psiFile = myFixture.configureByText(XmlFileType.INSTANCE, "<foo>bar</foo>")
-        val xmlFile = assertInstanceOf(psiFile, XmlFile::class.java)
+    override fun getTestDataPath() = "src/test/testData/rename"
 
-        assertFalse(PsiErrorElementUtil.hasErrors(project, xmlFile.virtualFile))
-
-        assertNotNull(xmlFile.rootTag)
-
-        xmlFile.rootTag?.let {
-            assertEquals("foo", it.name)
-            assertEquals("bar", it.value.text)
+    fun testRename() {
+        val name = "user_center"
+        toPascalCase(name,false).apply {
+            println(this)
         }
     }
 
-    fun testRename() {
-        myFixture.testRename("foo.xml", "foo_after.xml", "a2")
+    private fun toPascalCase(input: String, firstCharUpper: Boolean = true): String {
+        val result = input.split('_') // 将字符串按下划线分割成数组
+            .joinToString("") { part -> // 将数组拼接成一个字符串
+                part.replaceFirstChar { if (it.isLowerCase()) it.titlecase() else it.toString() }
+            }
+        return if (firstCharUpper) result.replaceFirstChar { it.uppercaseChar() } else result.replaceFirstChar { it.lowercaseChar() }
     }
-
-    fun testProjectService() {
-        val projectService = project.service<MyProjectService>()
-
-        assertNotSame(projectService.getRandomNumber(), projectService.getRandomNumber())
-    }
-
-    override fun getTestDataPath() = "src/test/testData/rename"
 }

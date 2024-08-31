@@ -24,10 +24,4 @@ Github Repository is [FlutterRiverpod](https://github.com/LiuPack/FlutterRiverpo
 
 ![Edit](screen/2.png)
 
-![Create](screen/6.png)
-
-![Create](screen/5.png)
-
 ![Create](screen/3.png)
-
-![Create](screen/4.png)
