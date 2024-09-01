@@ -20,6 +20,11 @@
                 description="Create Flutter Riverpod template code" icon="/image/flutter_riverpod_template.png">
             <add-to-group group-id="NewGroup" anchor="first"/>
         </action>
+        <action id="com.github.liupack.flutterriverpod.ComposeAction"
+                class="com.github.liupack.flutterriverpod.ComposeAction" text="ComposeAction"
+                description="创建一个 Compose 开发的 UI">
+            <add-to-group group-id="ToolsMenu" anchor="last"/>
+        </action>
     </actions>
 
     <extensions defaultExtensionNs="com.intellij">
